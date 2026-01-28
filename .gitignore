@@ -26,6 +26,9 @@ Thumbs.db
 # Streamlit
 .streamlit/secrets.toml
 
+# Model files (avoid version conflicts)
+models/*.joblib
+
 # Claude Code
 CLAUDE.md
 venv/

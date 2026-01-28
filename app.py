@@ -139,9 +139,14 @@ def load_model():
     """Load or train the churn prediction model."""
     predictor = ChurnPredictor()
 
-    if MODEL_PATH.exists():
-        predictor.load(MODEL_PATH)
-    else:
+    try:
+        if MODEL_PATH.exists():
+            predictor.load(MODEL_PATH)
+    except (AttributeError, ModuleNotFoundError):
+        # Model was saved with different scikit-learn version, retrain
+        pass
+
+    if not predictor.is_fitted:
         df = load_data()
         predictor.fit(df)
         MODEL_PATH.parent.mkdir(exist_ok=True)
