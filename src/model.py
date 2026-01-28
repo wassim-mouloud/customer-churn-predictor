@@ -59,25 +59,20 @@ class ChurnPredictor:
         X = self.prepare_features(df)
         y = df['churn'].values
 
-        # Split data
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=test_size, random_state=42, stratify=y
         )
 
-        # Scale features
         X_train_scaled = self.scaler.fit_transform(X_train)
         X_test_scaled = self.scaler.transform(X_test)
 
-        # Train model
         self.model.fit(X_train_scaled, y_train)
         self.is_fitted = True
 
-        # Predictions
         y_train_pred = self.model.predict(X_train_scaled)
         y_test_pred = self.model.predict(X_test_scaled)
         y_test_proba = self.model.predict_proba(X_test_scaled)[:, 1]
 
-        # Calculate metrics
         def calc_metrics(y_true, y_pred):
             return {
                 'accuracy': accuracy_score(y_true, y_pred),
@@ -86,13 +81,10 @@ class ChurnPredictor:
                 'f1': f1_score(y_true, y_pred)
             }
 
-        # ROC curve
         fpr, tpr, roc_thresholds = roc_curve(y_test, y_test_proba)
 
-        # Precision-Recall curve
         pr_precision, pr_recall, pr_thresholds = precision_recall_curve(y_test, y_test_proba)
 
-        # Feature importance
         feature_importance = dict(zip(
             self.feature_columns,
             self.model.feature_importances_
@@ -131,7 +123,6 @@ class ChurnPredictor:
         if not self.is_fitted:
             raise ValueError("Model must be fitted before making predictions")
 
-        # Build feature array in correct order
         X = np.array([[features.get(col, 0) for col in self.feature_columns]])
         X_scaled = self.scaler.transform(X)
 
@@ -212,7 +203,6 @@ class ChurnPredictor:
 
 
 if __name__ == "__main__":
-    # Test the model
     from .generate_data import generate_churn_data
 
     print("Generating data...")
@@ -234,15 +224,14 @@ if __name__ == "__main__":
     for feature, importance in predictor.get_feature_importance().items():
         print(f"  {feature}: {importance:.4f}")
 
-    # Test single prediction
     print("\n=== Sample Prediction ===")
     prediction, probability = predictor.predict(
         tenure=5,
         monthly_charges=80,
         total_charges=400,
-        contract_type=0,  # Month-to-month
-        payment_method=0,  # Electronic check
-        internet_service=2,  # Fiber optic
+        contract_type=0,  
+        payment_method=0, 
+        internet_service=2, 
         online_security=0,
         tech_support=0,
         streaming_tv=1,
@@ -256,7 +245,6 @@ if __name__ == "__main__":
     print(f"Prediction: {'Churn' if prediction else 'No Churn'}")
     print(f"Probability: {probability:.1%}")
 
-    # Save model
     model_path = Path(__file__).parent.parent / "models" / "churn_model.joblib"
     predictor.save(model_path)
     print(f"\nModel saved to {model_path}")

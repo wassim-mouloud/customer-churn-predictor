@@ -1,6 +1,5 @@
 """Configuration constants for the Customer Churn Predictor."""
 
-# Feature columns used by the model
 FEATURE_COLUMNS = [
     'tenure', 'monthly_charges', 'total_charges',
     'contract_type', 'payment_method', 'internet_service',
@@ -9,7 +8,6 @@ FEATURE_COLUMNS = [
     'partner', 'dependents', 'paperless_billing'
 ]
 
-# Categorical feature mappings for UI
 CONTRACT_OPTIONS = {
     'Month-to-month': 0,
     'One year': 1,
@@ -34,13 +32,11 @@ GENDER_OPTIONS = {
     'Male': 1
 }
 
-# Reverse mappings for display
 CONTRACT_LABELS = {v: k for k, v in CONTRACT_OPTIONS.items()}
 PAYMENT_LABELS = {v: k for k, v in PAYMENT_OPTIONS.items()}
 INTERNET_LABELS = {v: k for k, v in INTERNET_OPTIONS.items()}
 GENDER_LABELS = {v: k for k, v in GENDER_OPTIONS.items()}
 
-# Dark theme colors for Plotly
 COLORS = {
     'background': '#0E1117',
     'paper': '#1E1E1E',
@@ -54,17 +50,14 @@ COLORS = {
     'grid': '#2D2D2D'
 }
 
-# Color palette for charts
 CHART_COLORS = ['#00D4FF', '#BB86FC', '#00E676', '#FFD93D', '#FF79C6', '#FF9F43']
 
-# Risk level thresholds
 RISK_THRESHOLDS = {
     'low': 0.3,
     'medium': 0.6,
     'high': 1.0
 }
 
-# Risk level colors
 RISK_COLORS = {
     'low': '#00E676',
     'medium': '#FFD93D',
