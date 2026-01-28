@@ -336,13 +336,14 @@ def plot_feature_importance(importance_dict: dict) -> go.Figure:
         hovertemplate='%{y}<br>Importance: %{x:.4f}<extra></extra>'
     ))
 
+    layout = get_layout_template()
+    layout['margin'] = {**layout['margin'], 'l': 150}
     fig.update_layout(
-        **get_layout_template(),
+        **layout,
         title='Feature Importance (Random Forest)',
         xaxis_title='Importance Score',
         yaxis_title='',
-        height=500,
-        margin=dict(l=150)
+        height=500
     )
 
     return fig
