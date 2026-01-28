@@ -15,7 +15,7 @@ def get_layout_template() -> dict:
         'paper_bgcolor': COLORS['background'],
         'plot_bgcolor': COLORS['paper'],
         'font': {'color': COLORS['text'], 'family': 'Arial, sans-serif'},
-        'title': {'font': {'size': 20, 'color': COLORS['primary']}},
+        'title_font': {'size': 20, 'color': COLORS['primary']},
         'xaxis': {
             'gridcolor': COLORS['grid'],
             'linecolor': COLORS['grid'],
@@ -26,7 +26,7 @@ def get_layout_template() -> dict:
             'linecolor': COLORS['grid'],
             'zerolinecolor': COLORS['grid']
         },
-        'legend': {'bgcolor': 'rgba(0,0,0,0)'},
+        'legend_bgcolor': 'rgba(0,0,0,0)',
         'margin': {'t': 60, 'b': 40, 'l': 40, 'r': 40}
     }
 
@@ -145,12 +145,13 @@ def plot_churn_by_contract(df: pd.DataFrame) -> go.Figure:
         customdata=total_customers
     ))
 
+    layout = get_layout_template()
+    layout['yaxis'] = {**layout['yaxis'], 'range': [0, max(churn_rates) * 1.2]}
     fig.update_layout(
-        **get_layout_template(),
+        **layout,
         title='Churn Rate by Contract Type',
         xaxis_title='Contract Type',
         yaxis_title='Churn Rate (%)',
-        yaxis=dict(range=[0, max(churn_rates) * 1.2], **get_layout_template()['yaxis']),
         showlegend=False
     )
 
@@ -177,12 +178,13 @@ def plot_churn_by_service(df: pd.DataFrame) -> go.Figure:
         textposition='outside'
     ))
 
+    layout = get_layout_template()
+    layout['yaxis'] = {**layout['yaxis'], 'range': [0, max(churn_rates) * 1.2]}
     fig.update_layout(
-        **get_layout_template(),
+        **layout,
         title='Churn Rate by Internet Service',
         xaxis_title='Internet Service',
         yaxis_title='Churn Rate (%)',
-        yaxis=dict(range=[0, max(churn_rates) * 1.2], **get_layout_template()['yaxis']),
         showlegend=False
     )
 
@@ -208,10 +210,11 @@ def plot_correlation_heatmap(df: pd.DataFrame) -> go.Figure:
         hovertemplate='%{x} vs %{y}<br>Correlation: %{z:.3f}<extra></extra>'
     ))
 
+    layout = get_layout_template()
+    layout['xaxis'] = {**layout['xaxis'], 'tickangle': 45}
     fig.update_layout(
-        **get_layout_template(),
+        **layout,
         title='Feature Correlation Matrix',
-        xaxis=dict(tickangle=45, **get_layout_template()['xaxis']),
         height=600
     )
 
@@ -272,13 +275,14 @@ def plot_roc_curve(fpr: np.ndarray, tpr: np.ndarray, auc: float) -> go.Figure:
         line=dict(color=COLORS['text_secondary'], width=2, dash='dash')
     ))
 
+    layout = get_layout_template()
+    layout['xaxis'] = {**layout['xaxis'], 'range': [0, 1]}
+    layout['yaxis'] = {**layout['yaxis'], 'range': [0, 1.05]}
     fig.update_layout(
-        **get_layout_template(),
+        **layout,
         title=f'ROC Curve (AUC = {auc:.3f})',
         xaxis_title='False Positive Rate',
         yaxis_title='True Positive Rate',
-        xaxis=dict(range=[0, 1], **get_layout_template()['xaxis']),
-        yaxis=dict(range=[0, 1.05], **get_layout_template()['yaxis']),
         legend=dict(x=0.5, y=0.1)
     )
 
@@ -298,13 +302,14 @@ def plot_precision_recall_curve(precision: np.ndarray, recall: np.ndarray) -> go
         fillcolor=f'rgba(187, 134, 252, 0.2)'
     ))
 
+    layout = get_layout_template()
+    layout['xaxis'] = {**layout['xaxis'], 'range': [0, 1]}
+    layout['yaxis'] = {**layout['yaxis'], 'range': [0, 1.05]}
     fig.update_layout(
-        **get_layout_template(),
+        **layout,
         title='Precision-Recall Curve',
         xaxis_title='Recall',
-        yaxis_title='Precision',
-        xaxis=dict(range=[0, 1], **get_layout_template()['xaxis']),
-        yaxis=dict(range=[0, 1.05], **get_layout_template()['yaxis'])
+        yaxis_title='Precision'
     )
 
     return fig
