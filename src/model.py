@@ -60,7 +60,7 @@ class ChurnPredictor:
         y = df['churn'].values
 
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=42, stratify=y
+            X, y, test_size=test_size, random_state=42, stratify=y  # type: ignore[arg-type]
         )
 
         X_train_scaled = self.scaler.fit_transform(X_train)
@@ -175,7 +175,7 @@ class ChurnPredictor:
         ))
         return dict(sorted(importance.items(), key=lambda x: x[1], reverse=True))
 
-    def get_metrics(self) -> dict:
+    def get_metrics(self) -> dict | None:
         """Return stored metrics from training."""
         return self._metrics
 
@@ -246,5 +246,5 @@ if __name__ == "__main__":
     print(f"Probability: {probability:.1%}")
 
     model_path = Path(__file__).parent.parent / "models" / "churn_model.joblib"
-    predictor.save(model_path)
+    predictor.save(str(model_path))
     print(f"\nModel saved to {model_path}")

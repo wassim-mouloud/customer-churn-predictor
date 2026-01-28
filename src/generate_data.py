@@ -163,4 +163,4 @@ if __name__ == "__main__":
     print(df.describe())
 
     data_path = Path(__file__).parent.parent / "data" / "churn_data.csv"
-    save_data(df, data_path)
+    save_data(df, str(data_path))
