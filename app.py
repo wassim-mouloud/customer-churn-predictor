@@ -120,6 +120,11 @@ st.markdown(f"""
 
     .stTabs [aria-selected="true"] {{
         background-color: {COLORS['primary']};
+        color: white !important;
+    }}
+
+    .stTabs [data-baseweb="tab"] p {{
+        color: white !important;
     }}
 </style>
 """, unsafe_allow_html=True)

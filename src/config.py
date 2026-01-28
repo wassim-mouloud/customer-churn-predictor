@@ -55,7 +55,7 @@ COLORS = {
 }
 
 # Color palette for charts
-CHART_COLORS = ['#00D4FF', '#FF6B6B', '#00E676', '#FFD93D', '#BB86FC', '#FF9F43']
+CHART_COLORS = ['#00D4FF', '#BB86FC', '#00E676', '#FFD93D', '#FF79C6', '#FF9F43']
 
 # Risk level thresholds
 RISK_THRESHOLDS = {
