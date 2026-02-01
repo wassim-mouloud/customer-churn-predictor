@@ -52,23 +52,23 @@ churn-predictor/
 
 ## Dataset Features
 
-| Category | Features |
-|----------|----------|
-| Demographics | gender, senior_citizen, partner, dependents |
-| Account | tenure, contract_type, payment_method, paperless_billing |
-| Services | internet_service, online_security, tech_support, streaming_tv, streaming_movies |
-| Charges | monthly_charges, total_charges |
-| Target | churn (~27% rate) |
+| Category     | Features                                                                        |
+| ------------ | ------------------------------------------------------------------------------- |
+| Demographics | gender, senior_citizen, partner, dependents                                     |
+| Account      | tenure, contract_type, payment_method, paperless_billing                        |
+| Services     | internet_service, online_security, tech_support, streaming_tv, streaming_movies |
+| Charges      | monthly_charges, total_charges                                                  |
+| Target       | churn (~27% rate)                                                               |
 
 ## Model Performance
 
-| Metric | Score |
-|--------|-------|
-| Accuracy | ~80% |
-| Precision | ~65% |
-| Recall | ~75% |
-| F1 Score | ~70% |
-| ROC-AUC | ~85% |
+| Metric    | Score |
+| --------- | ----- |
+| Accuracy  | ~80%  |
+| Precision | ~65%  |
+| Recall    | ~75%  |
+| F1 Score  | ~70%  |
+| ROC-AUC   | ~85%  |
 
 ## Technologies
 
@@ -82,11 +82,5 @@ churn-predictor/
 ## Key Learnings
 
 - Classification problem solving with Random Forest
-- Handling imbalanced datasets with class weights
 - Feature importance analysis and interpretation
 - Building interactive ML dashboards
-- Dark theme UI/UX design
-
-## Author
-
-Your Name - Portfolio project demonstrating ML classification skills
